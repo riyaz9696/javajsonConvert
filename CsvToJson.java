@@ -25,35 +25,40 @@ class CsvToJson
             // String input 
             String fileName = sc.nextLine(); 
             System.out.println(fileName);
-            fr = new FileReader("/home/amoeba/Desktop/JAVAFiles/ipl .csv");
+            fr = new FileReader("/home/amoeba/Desktop/JAVAFiles/ipl l.csv");
+
             BufferedReader br=new BufferedReader(fr);
-             
+
+                                
             
              String firstline=br.readLine();
             String[] words=firstline.split(",");
-           /* for(String w:words){
-                System.out.println(w);
-            }*/
-
+           
 
             int i; 
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter("ipl2.json"))) {
              while ((line = br.readLine())!=null) {
              String[] newword=line.split(",");
             
-            for(i=0;i<=newword.length;i++)
-            {
                 System.out.println("{");
+                 bw.write("{"+"\r\n");
+            for(i=0;i<newword.length;i++)
+            {
+
                 System.out.println(""+words[i]+":"+newword[i]);
-               System.out.println("}");
+                 bw.write(" "+words[i]+":"+newword[i]+","+"\r\n");
+
             }
+                    bw.write("\r\n"+"}"+",");
+               System.out.println("}");
 
-           
-
-
+        
               }
-
-          /* System.out.println(map);
-  */
+              } catch (IOException e) {
+                e.printStackTrace();
+            }    
+        
+  
         } 
 
         catch (Exception fe) 
@@ -64,5 +69,6 @@ class CsvToJson
         
         // close the file 
         fr.close(); 
+
     } 
 } 
